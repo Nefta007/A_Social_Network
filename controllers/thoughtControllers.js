@@ -27,10 +27,10 @@ module.exports = {
             res.status(500).json(err);
         }
     },
-    // Create a user
+    // Create a thought
     async createThought(req, res) {
         try {
-            const user = await User.findOne({ id: req.params.userId });
+            const user = await User.findOne({ _id: req.params.userId });
             if (!user) {
                 return res.status(404).json({ message: "No such user" });
             }

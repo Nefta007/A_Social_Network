@@ -22,7 +22,7 @@ module.exports = {
         path: "friends",
         select:'-__v'
       })
-      .select('-_v'); 
+      .select('-__v'); 
 
       if (!user) {
         return res.status(404).json({ message: 'No user with that ID' });
@@ -43,7 +43,7 @@ module.exports = {
       return res.status(500).json(err);
     }
   },
-  // Delete a course
+  // Delete a user
   async deleteUserById(req, res) {
     try {
       const user = await User.findOneAndRemove({ _id: req.params.userId });
@@ -98,7 +98,7 @@ module.exports = {
   async deletefriend(req, res) {
     try {
       const user = await User.findOneAndUpdate(
-        { _id: req.params.friendId },
+        { _id: req.params.userId },
         {$pull: {friends: req.params.freindId}},
         {new:true}
         );
