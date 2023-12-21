@@ -4,7 +4,7 @@ module.exports = {
     // Get all users
     async getAllThoughts(req, res) {
         try {
-            const thoughts = await Thought.find({}).populate({ path: 'reactions', select: '-_v' });
+            const thoughts = await Thought.find({}).populate({ path: 'reactions', select: '-__v' });
             res.json(thoughts);
         } catch (err) {
             res.status(500).json(err);
@@ -91,7 +91,7 @@ module.exports = {
 
     async createReaction(req, res) {
         try {
-            const user = await User.findOneAndUpdate(
+            const user = await User.findOne(
                 { _id: req.params.userId }
             );
 
@@ -116,7 +116,7 @@ module.exports = {
         try {
             const thought = await Thought.findOneAndUpdate(
                 { _id: req.params.thoughtId },
-                { $pull: { reactoins: { reactionId: req.params.reactionId } } },
+                { $pull: { reactions: { reactionId: req.params.reactionId } } },
                 { new: true }
             );
 
