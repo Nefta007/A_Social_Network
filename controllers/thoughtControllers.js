@@ -51,7 +51,7 @@ module.exports = {
     // Delete a course
     async deleteThoughtById(req, res) {
         try {
-            const thought = await Thought.findOneAndRemove({ _id: req.params.thoughtId });
+            const thought = await Thought.findOneAndDelete({ _id: req.params.thoughtId });
 
             if (!thought) {
                 res.status(404).json({ message: 'No user with that ID' });
@@ -100,7 +100,7 @@ module.exports = {
             }
             const thought = await Thought.findOneAndUpdate(
                 {_id: req.params.thoughtId},
-                {$addToSet:{reactoins:{...req.body, username: user.username}}},
+                {$addToSet:{reactions:{...req.body, username: user.username}}},
                 {runValidators: true, new: true}
             );
             if(!thought){

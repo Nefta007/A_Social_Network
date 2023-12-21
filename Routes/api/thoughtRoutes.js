@@ -27,7 +27,7 @@ router.route("/newThought/:userId")
 
 
 router
-    .route('/:thoughtId/reactions')
+    .route('/:userId/newReaction/:thoughtId')
     .post(createReaction);
 
 router
