@@ -12,7 +12,7 @@ const {
 } = require('../../controllers/thoughtControllers.js');
 
 // /api/thoughts
-router.route('/')
+router.route("/")
     .get(getAllThoughts)
 
 // /api/thoughts/:thoughtsId

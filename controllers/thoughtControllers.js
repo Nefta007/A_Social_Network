@@ -39,10 +39,10 @@ module.exports = {
             });
             await User.findOneAndUpdate(
                 { _id: user._id },
-                { $push: {thoughts: thought._id} },
+                { $push: { thoughts: thought._id } },
                 { new: true }
             );
-            res.json({message: "It worked"});
+            res.json({ message: "It worked" });
         } catch (err) {
             console.log(err);
             return res.status(500).json(err);
@@ -51,21 +51,21 @@ module.exports = {
     // Delete a course
     async deleteThoughtById(req, res) {
         try {
-            const thought = await Thought.findOneAndDelete({ _id: req.params.thoughtId });
+            const thought = await Thought.findOneAndRemove({ _id: req.params.thoughtId });
 
             if (!thought) {
                 res.status(404).json({ message: 'No user with that ID' });
             }
 
             const user = await User.findOneAndUpdate(
-                {thoughts: req.params.id},
-                {$pull: {thoughts: req.params.id}},
-                {new: true}
+                { thoughts: req.params.id },
+                { $pull: { thoughts: req.params.id } },
+                { new: true }
             );
-            if(!user){
-                res.status(404).json({message: "No such user"});
+            if (!user) {
+                res.status(404).json({ message: "No such user" });
             }
-            res.json({message:"It worked"});
+            res.json({ message: "It worked" });
         } catch (err) {
             res.status(500).json(err);
         }
@@ -99,14 +99,14 @@ module.exports = {
                 res.status(404).json({ message: 'No user with this id!' });
             }
             const thought = await Thought.findOneAndUpdate(
-                {_id: req.params.thoughtId},
-                {$addToSet:{reactions:{...req.body, username: user.username}}},
-                {runValidators: true, new: true}
+                { _id: req.params.thoughtId },
+                { $addToSet: { reactions: { ...req.body, username: user.username } } },
+                { runValidators: true, new: true }
             );
-            if(!thought){
-                res.status(404).json({message:'No such id'});
+            if (!thought) {
+                res.status(404).json({ message: 'No such id' });
             }
-            res.json({message:'it worked'});
+            res.json({ message: 'it worked' });
         } catch (err) {
             res.status(500).json(err);
         }
@@ -123,7 +123,7 @@ module.exports = {
             if (!thought) {
                 res.status(404).json({ message: 'No thought with that ID' });
             }
-            res.json({message: 'it worked'});
+            res.json({ message: 'it worked' });
         } catch (err) {
             res.status(500).json(err);
         }
